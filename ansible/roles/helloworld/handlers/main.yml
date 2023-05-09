@@ -1,0 +1,10 @@
+---
+# handlers file for helloworld
+- name: reload systemctl
+  command: systemctl daemon-reload
+  
+- name: restart helloworld
+  service: 
+    name: helloworld.service
+    state: restarted
+

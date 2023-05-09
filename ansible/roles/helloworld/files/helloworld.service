@@ -1,0 +1,10 @@
+[Unit]
+Description="Hello world Deamon"
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/ec2-user/.nvm/versions/node/v16.20.0/bin/node /home/ec2-user/helloworld.js
+
+[Install]
+WantedBy=default.target
