@@ -1,0 +1,17 @@
+---
+# tasks file for nodejs
+- name: download file
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh
+    dest: /home/ec2-user/install.sh
+
+- name: install nodejs and npm 
+  ansible.builtin.shell: sh install.sh
+
+- name: run nvm.sh
+  ansible.builtin.shell: "source ~/.nvm/nvm.sh && nvm install 16"
+  become: yes
+  become_user: root
+  #- name: Install node and set version
+  #ansible.builtin.shell: nvm install --lts
+
