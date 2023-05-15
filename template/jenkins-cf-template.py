@@ -21,7 +21,7 @@ from troposphere.iam import (
 from awacs.aws import (
     Action,
     Allow,
-    Policy,
+    PolicyDocument,
     Principal,
     Statement,
 )
@@ -68,14 +68,14 @@ t.add_resource(ec2.SecurityGroup(
 ud = Base64(Join('\n', [ "#!/bin/bash",
 "yum install -y git",
 "yum install -y pip",
-"pip install ansible==2.9.26 -y",
+"pip install ansible==2.9.26",
 AnsiblePullCmd,
 "echo '*/10 * * * * {}' > /etc/cron.d/ansible-pull".format(AnsiblePullCmd)
 ]))
 
 t.add_resource(Role(
     "Role",
-    AssumeRolePolicyDocument=Policy(
+    AssumeRolePolicyDocument=PolicyDocument(
         Statement=[
             Statement(
                 Effect=Allow,
@@ -88,7 +88,6 @@ t.add_resource(Role(
 
 t.add_resource(InstanceProfile(
     "InstanceProfile",
-    Path="/",
     Roles=[Ref("Role")]
 ))
 
